@@ -58,7 +58,7 @@ def get_index_html(*, versions: list[str]) -> str:
     <meta charset="utf-8"/>
 
 
-    <title>Verison {version}</title>
+    <title>OME-zarr JSON schema specifications</title>
 </head>
 <body onload="anchorOnLoad();" id="root">
 
