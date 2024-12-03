@@ -74,7 +74,7 @@ def get_index_html(*, versions: list[str]) -> str:
 
 
 if __name__ == "__main__":
-    versions = ["0.4", "0.5"]
+    versions = ["0.4", "0.5", "RFC 5"]
     for version in versions:
         version_output_path = OUTPUT_PATH / version
         version_output_path.mkdir(exist_ok=True)
