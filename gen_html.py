@@ -7,4 +7,7 @@ if __name__ == "__main__":
     # TODO: download schemas from source
     for schema_file in schema_path.glob("*.schema"):
         print(schema_file)
-        generate_from_filename(schema_file, result_file_name=Path(__file__).parent / "0.4" / schema_file.with_suffix(".html").name)
+        generate_from_filename(
+            schema_file,
+            result_file_name=Path(__file__).parent / "0.4" / schema_file.with_suffix(".html").name
+        )
