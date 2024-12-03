@@ -63,7 +63,8 @@ def get_index_html(*, versions: list[str]) -> str:
 <body onload="anchorOnLoad();" id="root">
 
     <div class="breadcrumbs"></div> <h1>OME-zarr JSON schema specifications</h1><br/>
-    <p> Nicely rendered JSON schemas generated directly from the <a href=https://ngff.openmicroscopy.org/specifications/index.html>OME-zarr specifications</a>.
+    <p> Nicely rendered JSON schemas generated directly from the <a href=https://ngff.openmicroscopy.org/specifications/index.html>OME-zarr specifications</a>.</p>
+    <p> Generated using <a href=https://coveooss.github.io/json-schema-for-humans>json-schema-for-humans</a>.</p>
     <ul>
     {versions_list}
     </ul>
