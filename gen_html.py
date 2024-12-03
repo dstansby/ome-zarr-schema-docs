@@ -5,6 +5,9 @@ from json_schema_for_humans.generate import (
     GenerationConfiguration,
 )
 
+OUTPUT_PATH = Path(__file__).parent / "_site"
+SCHEMA_PATH = Path(__file__).parent / "schemas"
+
 
 def get_version_index_html(*, version: str, schmea_fnames: list[Path]) -> str:
     schemas_list = "\n".join(
@@ -71,8 +74,9 @@ def get_index_html(*, versions: list[str]) -> str:
 if __name__ == "__main__":
     versions = ["0.4"]
     for version in versions:
-        version_output_path = Path(__file__).parent / version
-        schema_path = Path(__file__).parent / "schemas" / version
+        version_output_path = OUTPUT_PATH / version
+        version_output_path.mkdir(exist_ok=True)
+        schema_path = SCHEMA_PATH / version
         # TODO: download schemas from source
         for schema_file in schema_path.glob("*.schema"):
             print(schema_file)

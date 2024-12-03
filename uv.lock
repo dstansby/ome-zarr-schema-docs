@@ -200,7 +200,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "json-schema-for-humans", specifier = ">=1.3.3" }]
+requires-dist = [{ name = "json-schema-for-humans", specifier = "==1.3.3" }]
 
 [[package]]
 name = "packaging"
