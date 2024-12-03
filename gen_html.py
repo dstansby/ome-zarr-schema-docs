@@ -72,13 +72,13 @@ def get_index_html(*, versions: list[str]) -> str:
 
 
 if __name__ == "__main__":
-    versions = ["0.4"]
+    versions = ["0.4", "0.5"]
     for version in versions:
         version_output_path = OUTPUT_PATH / version
         version_output_path.mkdir(exist_ok=True)
         schema_path = SCHEMA_PATH / version
         # TODO: download schemas from source
-        for schema_file in schema_path.glob("*.schema"):
+        for schema_file in sorted(schema_path.glob("*.schema")):
             print(schema_file)
             generate_from_filename(
                 schema_file,
@@ -88,7 +88,9 @@ if __name__ == "__main__":
             )
 
         schema_fnames = [
-            p for p in version_output_path.glob("*.html") if p.name != "index.html"
+            p
+            for p in sorted(version_output_path.glob("*.html"))
+            if p.name != "index.html"
         ]
         with open(version_output_path / "index.html", "w") as f:
             f.write(
