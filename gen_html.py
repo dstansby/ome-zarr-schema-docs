@@ -1,9 +1,15 @@
 from pathlib import Path
 
-from json_schema_for_humans.generate import generate_from_filename, GenerationConfiguration
+from json_schema_for_humans.generate import (
+    generate_from_filename,
+    GenerationConfiguration,
+)
+
 
 def get_version_index_html(*, version: str, schmea_fnames: list[Path]) -> str:
-    schemas_list = "\n".join([f"<li><a href={p.name}>{p.stem}</a> </li>" for p in schmea_fnames])
+    schemas_list = "\n".join(
+        [f"<li><a href={p.name}>{p.stem}</a> </li>" for p in schmea_fnames]
+    )
     return f"""
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +38,9 @@ def get_version_index_html(*, version: str, schmea_fnames: list[Path]) -> str:
 
 
 def get_index_html(*, versions: list[str]) -> str:
-    versions_list = "\n".join([f"<li><a href={v}/index.html>{v}</a> </li>" for v in versions])
+    versions_list = "\n".join(
+        [f"<li><a href={v}/index.html>{v}</a> </li>" for v in versions]
+    )
     return f"""
 <!DOCTYPE html>
 <html lang="en">
@@ -60,8 +68,6 @@ def get_index_html(*, versions: list[str]) -> str:
 """
 
 
-
-
 if __name__ == "__main__":
     versions = ["0.4"]
     for version in versions:
@@ -72,13 +78,18 @@ if __name__ == "__main__":
             print(schema_file)
             generate_from_filename(
                 schema_file,
-                result_file_name=version_output_path / schema_file.with_suffix(".html").name,
-                config=GenerationConfiguration(template_name="js")
+                result_file_name=version_output_path
+                / schema_file.with_suffix(".html").name,
+                config=GenerationConfiguration(template_name="js"),
             )
 
-        schema_fnames = [p for p in version_output_path.glob("*.html") if p.name != "index.html"]
-        with open(version_output_path / "index.html", 'w') as f:
-            f.write(get_version_index_html(version=version, schmea_fnames=schema_fnames))
+        schema_fnames = [
+            p for p in version_output_path.glob("*.html") if p.name != "index.html"
+        ]
+        with open(version_output_path / "index.html", "w") as f:
+            f.write(
+                get_version_index_html(version=version, schmea_fnames=schema_fnames)
+            )
 
     with open(version_output_path.parent / "index.html", "w") as f:
         f.write(get_index_html(versions=versions))
