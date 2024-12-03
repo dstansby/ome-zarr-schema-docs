@@ -63,6 +63,7 @@ def get_index_html(*, versions: list[str]) -> str:
 <body onload="anchorOnLoad();" id="root">
 
     <div class="breadcrumbs"></div> <h1>OME-zarr JSON schema specifications</h1><br/>
+    <p> Nicely rendered JSON schemas generated directly from the <a href=https://ngff.openmicroscopy.org/specifications/index.html>OME-zarr specifications</a>.
     <ul>
     {versions_list}
     </ul>
@@ -84,7 +85,7 @@ if __name__ == "__main__":
                 schema_file,
                 result_file_name=version_output_path
                 / schema_file.with_suffix(".html").name,
-                config=GenerationConfiguration(template_name="js"),
+                config=GenerationConfiguration(template_name="js", with_footer=False),
             )
 
         schema_fnames = [
