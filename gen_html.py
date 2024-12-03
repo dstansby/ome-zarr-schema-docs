@@ -31,10 +31,40 @@ def get_version_index_html(*, version: str, schmea_fnames: list[Path]) -> str:
 """
 
 
+def get_index_html(*, versions: list[str]) -> str:
+    versions_list = "\n".join([f"<li><a href={v}/index.html>{v}</a> </li>" for v in versions])
+    return f"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overpass:300,400,600,800">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="schema_doc.css">
+    <script src="https://use.fontawesome.com/facf9fa52c.js"></script>
+    <script src="schema_doc.min.js"></script>
+    <meta charset="utf-8"/>
+
+
+    <title>Verison {version}</title>
+</head>
+<body onload="anchorOnLoad();" id="root">
+
+    <div class="breadcrumbs"></div> <h1>OME-zarr JSON schema specifications</h1><br/>
+    <ul>
+    {versions_list}
+    </ul>
+</body>
+</html>
+"""
+
+
 
 
 if __name__ == "__main__":
-    for version in ["0.4"]:
+    versions = ["0.4"]
+    for version in versions:
         version_output_path = Path(__file__).parent / version
         schema_path = Path(__file__).parent / "schemas" / version
         # TODO: download schemas from source
@@ -49,3 +79,6 @@ if __name__ == "__main__":
         schema_fnames = [p for p in version_output_path.glob("*.html") if p.name != "index.html"]
         with open(version_output_path / "index.html", 'w') as f:
             f.write(get_version_index_html(version=version, schmea_fnames=schema_fnames))
+
+    with open(version_output_path.parent / "index.html", "w") as f:
+        f.write(get_index_html(versions=versions))
